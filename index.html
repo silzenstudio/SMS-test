@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>QR Motivacional</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+    #qrcode { margin: 20px auto; }
+    #mensagem { margin-top: 30px; font-size: 1.5em; font-weight: bold; color: #2c3e50; }
+  </style>
+</head>
+<body>
+  <h1>QR Motivacional ✨</h1>
+  <p>Escaneie o QR Code abaixo e receba uma mensagem aleatória:</p>
+  <div id="qrcode"></div>
+  <div id="mensagem"></div>
+
+  <script>
+    const mensagens = [
+      "A vida é preciosa, cada momento conta."
+      "Fale, alguém pode estar ouvindo."
+      "Sua dor importa, sua vida vale."
+      "Não lute sozinho, há esperança."
+      "Você não está sozinho, há ajuda."
+      "A esperança sempre brilha, mesmo nas noites mais escuras."
+
+    ];
+
+    // Função para pegar query params da URL
+    function getParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    // Verifica se a URL tem parâmetro de mensagem
+    const msgIndex = getParam("msg");
+
+    if (msgIndex !== null) {
+      document.getElementById("mensagem").innerText = mensagens[msgIndex];
+    } else {
+      // Sorteia uma mensagem
+      const aleatoria = Math.floor(Math.random() * mensagens.length);
+      const url = window.location.origin + window.location.pathname + "?msg=" + aleatoria;
+
+      // Gera o QR Code apontando para essa URL
+      new QRCode(document.getElementById("qrcode"), {
+        text: url,
+        width: 200,
+        height: 200
+      });
+
+      document.getElementById("mensagem").innerText = "QR gerado! Escaneie para ver a mensagem.";
+    }
+  </script>
+</body>
+</html>
