@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>QR Motivacional</title>
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+  <!-- Biblioteca de QRCode -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
     body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
     #qrcode { margin: 20px auto; }
@@ -44,12 +45,15 @@
 
     if (msgIndex !== null) {
       // Exibe a mensagem correspondente
-      document.getElementById("mensagem").innerText = mensagens[msgIndex];
+      document.getElementById("mensagem").innerText = mensagens[msgIndex] || "Mensagem não encontrada!";
     } else {
-      // Gera link público (sem parâmetros)
+      // Base URL do GitHub Pages
       const baseUrl = "https://silzenstudio.github.io/SMS-test/";
       const aleatoria = Math.floor(Math.random() * mensagens.length);
       const url = baseUrl + "?msg=" + aleatoria;
+
+      // Limpa o container antes de gerar
+      document.getElementById("qrcode").innerHTML = "";
 
       // Gera o QR Code apontando para essa URL
       new QRCode(document.getElementById("qrcode"), {
