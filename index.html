@@ -7,7 +7,12 @@
   <style>
     body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
     #qrcode { margin: 20px auto; }
-    #mensagem { margin-top: 30px; font-size: 1.5em; font-weight: bold; color: #2c3e50; }
+    #mensagem {
+      margin-top: 30px;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #2c3e50;
+    }
   </style>
 </head>
 <body>
@@ -18,13 +23,14 @@
 
   <script>
     const mensagens = [
-      "A vida é preciosa, cada momento conta."
-      "Fale, alguém pode estar ouvindo."
-      "Sua dor importa, sua vida vale."
-      "Não lute sozinho, há esperança."
-      "Você não está sozinho, há ajuda."
-      "A esperança sempre brilha, mesmo nas noites mais escuras."
-
+      "Você é mais forte do que pensa!",
+      "Um passo por vez já é progresso!",
+      "Acredite no processo!",
+      "Não desista agora, você está perto!",
+      "Sua dedicação inspira!",
+      "Hoje é um ótimo dia para começar!",
+      "Seja constante, não perfeito!",
+      "Sua disciplina vai te levar longe!"
     ];
 
     // Função para pegar query params da URL
@@ -37,11 +43,13 @@
     const msgIndex = getParam("msg");
 
     if (msgIndex !== null) {
+      // Exibe a mensagem correspondente
       document.getElementById("mensagem").innerText = mensagens[msgIndex];
     } else {
-      // Sorteia uma mensagem
+      // Gera link público (sem parâmetros)
+      const baseUrl = "https://silzenstudio.github.io/SMS-test/";
       const aleatoria = Math.floor(Math.random() * mensagens.length);
-      const url = window.location.origin + window.location.pathname + "?msg=" + aleatoria;
+      const url = baseUrl + "?msg=" + aleatoria;
 
       // Gera o QR Code apontando para essa URL
       new QRCode(document.getElementById("qrcode"), {
